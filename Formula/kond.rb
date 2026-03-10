@@ -1,15 +1,33 @@
 class Kond < Formula
-  desc "Server daemon for Kon — expose tools to Claude over HTTPS"
+  desc "Kon server — expose local tools to Claude over HTTPS"
   homepage "https://github.com/Kaden-Schutt/kon"
-  url "https://registry.npmjs.org/@schuttdev/kond/-/kond-0.5.0.tgz"
-  sha256 "8396365f09281244d7040bd235941a24b90b26cfc942c07baae85bec815195af"
+  version "0.5.0"
   license "MIT"
 
-  depends_on "node@20"
+  on_macos do
+    on_arm do
+      url "https://github.com/Kaden-Schutt/kon/releases/download/v0.5.0/kond-darwin-arm64"
+      sha256 "PLACEHOLDER"
+    end
+    on_intel do
+      url "https://github.com/Kaden-Schutt/kon/releases/download/v0.5.0/kond-darwin-x64"
+      sha256 "PLACEHOLDER"
+    end
+  end
+
+  on_linux do
+    on_arm do
+      url "https://github.com/Kaden-Schutt/kon/releases/download/v0.5.0/kond-linux-x64"
+      sha256 "PLACEHOLDER"
+    end
+    on_intel do
+      url "https://github.com/Kaden-Schutt/kon/releases/download/v0.5.0/kond-linux-x64"
+      sha256 "PLACEHOLDER"
+    end
+  end
 
   def install
-    system "npm", "install", *std_npm_args
-    bin.install_symlink libexec.glob("bin/*")
+    bin.install Dir["kond-*"].first => "kond"
   end
 
   test do
